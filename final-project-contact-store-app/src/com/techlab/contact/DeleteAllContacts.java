@@ -7,6 +7,12 @@ public class DeleteAllContacts extends Delete {
 	}
 	public void deleteAllContacts() {
 		String deleteQuery = "TRUNCATE TABLE contacts;";
-		super.delete(deleteQuery);
+		java.sql.PreparedStatement stmt = null;
+		try {
+			stmt = con.prepareStatement(deleteQuery);
+			super.delete(stmt);
+		}catch(Exception e) {
+			System.err.println(e);
+		}
 	}
 }

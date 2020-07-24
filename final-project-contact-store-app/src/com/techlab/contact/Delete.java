@@ -4,12 +4,9 @@ public abstract class Delete extends Contact {
 	public Delete(java.sql.Connection con) {
 		super(con);
 	}
-
-	protected void delete(String deleteQuery) {
-		java.sql.PreparedStatement stmt = null;
+	protected void delete(java.sql.PreparedStatement stmt) {
 		try {
-			stmt = con.prepareStatement(deleteQuery);
-			stmt.executeUpdate(deleteQuery);
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e);
 		}

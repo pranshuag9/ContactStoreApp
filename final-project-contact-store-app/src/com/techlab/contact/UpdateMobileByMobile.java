@@ -6,11 +6,19 @@ public class UpdateMobileByMobile extends Update {
 		super(con);
 	}
 	public void updateMobileByMobile(Long newMobile, Long oldMobile) {
-		if (!CheckMobileExists(oldMobile))
-			System.err.println("Contact does not exists.");
+		if (checkMobileExists(newMobile)) System.err.println("New contact already exists.");
+		else if (!checkMobileExists(oldMobile)) System.err.println("Old contact doesn't exists.");
 		else {
-			String updateQuery = "UPDATE contacts SET mobile=" + newMobile + " where mobile=" + oldMobile + ";";
-			super.update(updateQuery);
+			String updateQuery = "UPDATE contacts SET mobile=? where mobile=?;";
+			java.sql.PreparedStatement stmt = null;
+			try {
+				stmt = con.prepareStatement(updateQuery);
+				stmt.setLong(1, newMobile);
+				stmt.setLong(2, oldMobile);
+				super.update(stmt);
+			}catch(Exception e) {
+				System.err.println(e);
+			}
 		}
 	}
 }

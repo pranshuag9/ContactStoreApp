@@ -5,14 +5,15 @@ public abstract class Contact {
 	protected Contact(java.sql.Connection con) {
 		this.con = con;
 	}
-	protected boolean CheckMobileExists(Long mobile) {
-		String query = "SELECT count(*) FROM contacts WHERE contacts.mobile=" + mobile + ";";
+	protected boolean checkMobileExists(Long mobile) {
+		String query = "SELECT count(*) FROM contacts WHERE contacts.mobile=?;";
 		java.sql.ResultSet rs = null;
 		int count = 0;
 		java.sql.PreparedStatement stmt = null;
 		try {
 			stmt = this.con.prepareStatement(query);
-			rs = stmt.executeQuery(query);
+			stmt.setLong(1, mobile);
+			rs = stmt.executeQuery();
 			while (rs.next()) {
 				count = rs.getInt(1);
 			}
@@ -22,9 +23,7 @@ public abstract class Contact {
 			try {
 				if (count == 0)
 					return false;
-			} catch (Exception e) {
-
-			}
+			} catch (Exception e) {}
 		}
 		return true;
 	}

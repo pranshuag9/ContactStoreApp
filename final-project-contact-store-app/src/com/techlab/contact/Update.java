@@ -4,11 +4,9 @@ public abstract class Update extends Contact {
 	public Update(java.sql.Connection con) {
 		super(con);
 	}
-	protected void update(String updateQuery) {
-		java.sql.PreparedStatement stmt;
+	protected void update(java.sql.PreparedStatement stmt) {
 		try {
-			stmt = super.con.prepareStatement(updateQuery);
-			stmt.executeUpdate(updateQuery);
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e);
 		}

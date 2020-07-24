@@ -7,7 +7,7 @@ public abstract class Display extends Contact{
 	protected void display(java.sql.PreparedStatement stmt) {
 		try {
 			java.sql.ResultSet rs = stmt.executeQuery();
-
+			
 			int maxLenFname = 0;
 			int maxLenLname = 0;
 			int maxLenEmail = 0;
@@ -27,12 +27,9 @@ public abstract class Display extends Contact{
 
 			rs = stmt.executeQuery();
 
-			if (maxLenFname < "fname".length())
-				maxLenFname = "fname".length();
-			if (maxLenLname < "lname".length())
-				maxLenLname = "lname".length();
-			if (maxLenEmail < "email".length())
-				maxLenEmail = "email".length();
+			if (maxLenFname < "fname".length()) maxLenFname = "fname".length();
+			if (maxLenLname < "lname".length()) maxLenLname = "lname".length();
+			if (maxLenEmail < "email".length()) maxLenEmail = "email".length();
 
 			String headerFname = String.format("%-" + (maxLenFname + 1) + "s", "fname");
 			String headerLname = String.format("%-" + (maxLenLname + 1) + "s", "lname");
